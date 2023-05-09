@@ -6,6 +6,8 @@ use App\Models\School;
 use Illuminate\Http\Request;
 use App\Http\Resources\ClinicResource;
 use App\Http\Requests\Api\ClinicRequest;
+use App\Http\Resources\TeacherResource;
+use App\Models\Teacher;
 use App\Traits\HttpResponses;
 
 class SchoolController extends Controller
@@ -17,8 +19,8 @@ class SchoolController extends Controller
 
 
 
-    public function show($id){
-        return ClinicResource::collection(School::where('id',$id)->get());
+    public function show(School $school){
+        return TeacherResource::collection(Teacher::where('school_id',$school->id)->get());
 
     }
 
@@ -26,7 +28,7 @@ class SchoolController extends Controller
 
 public function store(ClinicRequest $request){
     $user=auth()->user();
-    // if($user->hasRole('admin')){
+     if($user->hasRole('admin')){
         $request->validated($request->all());
     $filename=$this->uploadimage($request,'Schools');
     $work=School::create([
@@ -34,7 +36,7 @@ public function store(ClinicRequest $request){
         'photo'=>$filename
     ]);
     return new ClinicResource ($work);
-    //}
+    }
     
 
  }
@@ -42,7 +44,7 @@ public function store(ClinicRequest $request){
 
  public function update(Request $request,$id){
     $user=auth()->user();
-    // if($user->hasRole('admin')){
+     if($user->hasRole('admin')){
     $work=School::findOrFail($id);
     if($request-> has('name')){
         $work->name=$request->name;
@@ -52,17 +54,17 @@ public function store(ClinicRequest $request){
     $work->photo=$filename;
     $work->save();
     return new ClinicResource($work);
-    // }
+     }
 }
 
 
 public function destroy($id){
     $user=auth()->user();
-    // if($user->hasRole('admin')){
+    if($user->hasRole('admin')){
     $work=School::findOrFail($id);
     $this->deleteimage($work);
     $result=$work->delete();
     return $this->succes('','your record was deleted succesfully');
-    // }
+     }
 }
 }

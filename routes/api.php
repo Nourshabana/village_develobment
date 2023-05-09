@@ -53,15 +53,20 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('/storedoctor',[DoctorclinicController::class,'store']);
     Route::resource('/teachers',TeacherController::class);
 
+    Route::resource('/schools',SchoolController::class);
+
     //////////////////clinics////////////////////
     Route::resource('/clinics',ClinicController::class);
 });
 Route::get('/allworks',[WorkController::class,'index']);
-Route::get('/showworks/{id}',[WorkController::class,'show']);
+Route::get('/showworks/{work}',[WorkController::class,'show']);
 Route::get('/allclinics',[ClinicController::class,'index']);
 Route::get("/showclinic/{id}",[ClinicController::class,'show']);
 Route::get('/allworkers',[WorkerController::class,'index']);
-Route::resource('/schools',SchoolController::class);
+
+Route::get('/allschools',[SchoolController::class,'index']);
+Route::get('/showschool/{school}',[SchoolController::class,'show']);
+Route::get('/allteacher',[TeacherController::class,'index']);
 
 
 ////////////////////Password reset////////////////

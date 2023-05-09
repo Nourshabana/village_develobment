@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Api\work;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ClinicRequest;
 use App\Http\Resources\ClinicResource;
+use App\Http\Resources\WorkerResource;
 use App\Models\Work;
+use App\Models\worker as ModelsWorker;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
-
+use Illuminate\Queue\Worker;
 
 class WorkController extends Controller
 {
@@ -20,8 +22,8 @@ class WorkController extends Controller
 
 
 
-    public function show($id){
-        return ClinicResource::collection(Work::where('id',$id)->get());
+    public function show(Work $work){
+        return WorkerResource::collection(ModelsWorker::where('works_id',$work->id)->get());
 
     }
 
