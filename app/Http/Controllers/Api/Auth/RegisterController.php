@@ -14,12 +14,12 @@ class RegisterController extends Controller
         $newuser=$request->validated();
         $newuser['password']=Hash::make($newuser['password']);
         $newuser['role']='user';
-        $newuser['status']='active';
+        
         
         $user=User::create($newuser);
 
         $success['Token']=$user->createToken('user',['app:all'])->plainTextToken;
-        $success['name']=$user->first_name;
+        $success['name']=$user->name;
         $success['success']=True;
         // try{
         //     $user->notify(new EmailVerificationNotification());

@@ -22,8 +22,7 @@ class StoreWorkerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name'=>['required','string'],
-            'last_name'=>['required','string'],
+            'name'=>['required','string'],
             'jobname'=>['required','string'],
             'address'=>['required'],
             'phone'=>['sometimes'],

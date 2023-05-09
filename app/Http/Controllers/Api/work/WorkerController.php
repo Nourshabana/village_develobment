@@ -30,16 +30,14 @@ class WorkerController extends Controller
         $worker=new worker();
         $filename=$this->uploadimage($request,'workers');
         $workers=Work::where('name','like','%'.$request->jobname.'%')->first();
-        $workeruser->first_name=$request->first_name;
-        $workeruser->last_name=$request->last_name;
+        $workeruser->name=$request->name;
         $workeruser->email=$request->email;
         $workeruser->phone=$request->phone;
-        // $workeruser->status='active';
         $workeruser->password=Hash::make($request->password);
         $workeruser->assignRole('worker');
         $workeruser->save();
         $worker->user_id=$workeruser->id;
-        $worker->name=$request->first_name.' '.$request->last_name;        
+        $worker->name=$request->name;        
         $worker->jobname=$request->jobname;
         $worker->works_id=$workers->id;
         $worker->address=$request->address;

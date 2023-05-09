@@ -20,14 +20,13 @@ class DoctorclinicController extends Controller
         $doctor=new Doctorclinic();
         $filename=$this->uploadimage($request,'Doctorclinics');
         $doctoruser->email=$request->email;
-        $doctoruser->first_name=$request->first_name;
-        $doctoruser->last_name=$request->last_name;
+        $doctoruser->name=$request->name;
         $doctoruser->password=Hash::make($request->password);
         if($request->has('phone')){$doctoruser->phone=$request->phone;}
         $doctoruser->assignRole('Doctor');
         $doctoruser->save();
         $doctor->user_id=$doctoruser->id;
-        $doctor->name=$request->first_name.' '.$request->last_name;
+        $doctor->name=$request->name;
         $doctor->price=$request->price;
         $doctor->field=$request->field;
         if ($filename){$doctor->photo=$filename;}

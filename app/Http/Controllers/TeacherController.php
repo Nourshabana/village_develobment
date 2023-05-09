@@ -29,15 +29,14 @@ class TeacherController extends Controller
         $teacher=new Teacher();
         $filename=$this->uploadimage($request,'teachers');
         $schools=School::where('name','like','%'.$request->schoolname.'%')->first();
-        $teacheruser->first_name=$request->first_name;
-        $teacheruser->last_name=$request->last_name;
+        $teacheruser->name=$request->name;
         $teacheruser->email=$request->email;
         if($request->has('phone')){$teacheruser->phone=$request->phone;}
         $teacheruser->password=Hash::make($request->password);
         $teacheruser->assignRole('teacher');
         $teacheruser->save();
         $teacher->user_id=$teacheruser->id;
-        $teacher->name=$request->first_name.' '.$request->last_name;        
+        $teacher->name=$request->name;
         $teacher->subject=$request->subject;
         $teacher->school_id=$schools->id;
         $teacher->stage=$request->stage;

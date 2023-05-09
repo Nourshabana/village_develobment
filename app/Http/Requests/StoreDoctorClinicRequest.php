@@ -22,8 +22,7 @@ class StoreDoctorClinicRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name'=>['required','string'],
-            'last_name'=>['required','string'],
+            'name'=>['required','string'],
             'phone'=>['sometimes'],
             'price'=>['required','string',],
             'field'=>['required','string'],
